@@ -8,7 +8,7 @@ class Transaksi extends Model
 {       
     public $timestamps = false;
     protected $table = 'transaksi';
-    protected $appends = ['ptnama','namabarang','harga'];
+    protected $appends = ['ptnama','namabarang','harga','total'];
     /**
      * The attributes that are mass assignable.
      *
@@ -37,11 +37,16 @@ class Transaksi extends Model
     
     public function getHargaAttribute()
     {
-        return optional($this->barang)->hraga;
+        return optional($this->barang)->harga;
     }
     
     public function getPtnamaAttribute()
     {
         return optional($this->pt)->nama;
+    }
+    
+    public function getTotalAttribute()
+    {
+        return $this->harga * $this->jumlah;
     }
 }

@@ -30,9 +30,11 @@ class TransaksiController extends Controller
 
     public function store(Request $request){
         $this->validate($request, [
-        'id' => 'required',
-        'nama' => 'required'
+        'kode_perusahaan' => 'required',
+        'id_barang' => 'required|numeric',
+        'jumlah'    => 'required|numeric'
          ]);
+         $request->merge(['tanggalinput'=>date('Y-m-d')]);
         if(Transaksi::create($request->all())){
             return response()->json(['status' => 'success']);
         }else{
